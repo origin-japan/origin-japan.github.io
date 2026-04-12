@@ -1,12 +1,1412 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的企业官网</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社オリジンジャパン | Origin Japan Co., Ltd.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Noto+Serif+SC:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c0e;
+  --bg2: #0f1214;
+  --bg3: #141820;
+  --surface: #161c24;
+  --surface2: #1e2730;
+  --jade: #3d9e82;
+  --jade-light: #5bbfa0;
+  --jade-dark: #2a6e5a;
+  --jade-pale: rgba(61,158,130,0.12);
+  --teal: #2d7d8a;
+  --green-light: #72c97e;
+  --gold: #c9a84c;
+  --gold-light: #e8cc7a;
+  --red-dot: #d43030;
+  --text: #e8ece8;
+  --text-dim: #8a9e94;
+  --text-muted: #4a5e54;
+  --border: rgba(61,158,130,0.15);
+  --border2: rgba(61,158,130,0.08);
+  --glow: rgba(61,158,130,0.25);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html {scroll-behavior:smooth;}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body.zh {font-family: 'Noto Sans SC', sans-serif;}
+
+/* ─── LANGUAGE CONTENT ─── */
+[data-ja], [data-zh] { display: none; }
+body.ja [data-ja] { display: block; }
+body.zh [data-zh] { display: block; }
+body.ja span[data-ja] { display: inline; }
+body.zh span[data-zh] { display: inline; }
+body.ja li[data-ja] { display: list-item; }
+body.zh li[data-zh] { display: list-item; }
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+  opacity:.5;
+}
+
+/* ─── NAV ─── */
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5vw;
+  height:72px;
+  background:rgba(10,12,14,0.88);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border2);
+  transition:background .3s;
+}
+.nav-logo {
+  display:flex;align-items:center;gap:14px;
+  text-decoration:none;
+}
+.logo-svg { width:38px;height:42px;flex-shrink:0; }
+.nav-brand {
+  display:flex;flex-direction:column;gap:1px;
+}
+.nav-brand-ja {
+  font-family:'Noto Serif JP',serif;
+  font-size:12px;font-weight:400;
+  color:var(--text-dim);letter-spacing:.08em;
+}
+.nav-brand-en {
+  font-family:'Cormorant Garamond',serif;
+  font-size:17px;font-weight:600;
+  color:var(--text);letter-spacing:.05em;
+}
+.nav-links {
+  display:flex;align-items:center;gap:32px;
+  list-style:none;
+}
+.nav-links a {
+  text-decoration:none;color:var(--text-dim);
+  font-size:13px;letter-spacing:.06em;
+  transition:color .2s;
+  position:relative;
+}
+.nav-links a::after {
+  content:'';position:absolute;left:0;bottom:-3px;
+  width:0;height:1px;background:var(--jade);
+  transition:width .3s;
+}
+.nav-links a:hover { color:var(--jade-light); }
+.nav-links a:hover::after { width:100%; }
+
+.lang-toggle {
+  display:flex;align-items:center;gap:0;
+  border:1px solid var(--border);border-radius:20px;overflow:hidden;
+  font-size:12px;letter-spacing:.06em;
+}
+.lang-btn {
+  padding:5px 14px;cursor:pointer;
+  background:transparent;border:none;
+  color:var(--text-muted);transition:all .2s;
+  font-size:12px;font-family:inherit;letter-spacing:.04em;
+}
+.lang-btn.active {
+  background:var(--jade);color:#fff;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  padding:120px 5vw 80px;
+}
+.hero-bg {
+  position:absolute;inset:0;
+  background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(45,125,138,0.15) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 50% at 20% 80%, rgba(61,158,130,0.08) 0%, transparent 60%);
+}
+.hero-grid-lines {
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(61,158,130,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,158,130,0.04) 1px, transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+}
+.hero-content {
+  position:relative;z-index:1;
+  max-width:800px;
+  text-align:center;
+}
+.hero-badge {
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);border-radius:24px;
+  padding:6px 18px;margin-bottom:36px;
+  font-size:12px;color:var(--jade-light);letter-spacing:.12em;
+  text-transform:uppercase;
+  background:rgba(61,158,130,0.07);
+}
+.hero-badge::before {
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--jade);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(1.4)}
+}
+.hero-title {
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(30px,5.5vw,58px);
+  font-weight:300;
+  line-height:1.45;
+  letter-spacing:.04em;
+  color:var(--text);
+  margin-bottom:24px;
+}
+body.zh .hero-title {
+  font-family:'Noto Serif SC',serif;
+  font-size:clamp(28px,4.8vw,52px);
+}
+.hero-title em {
+  font-style:normal;
+  background:linear-gradient(135deg,var(--jade-light),var(--green-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub {
+  font-size:15px;color:var(--text-dim);
+  max-width:560px;margin:0 auto 48px;
+  line-height:1.9;
+}
+.hero-ctas {
+  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+}
+.btn-primary {
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--jade);color:#fff;
+  padding:14px 32px;border-radius:4px;
+  text-decoration:none;font-size:14px;letter-spacing:.06em;
+  transition:all .25s;border:none;cursor:pointer;
+  font-family:inherit;
+}
+.btn-primary:hover {
+  background:var(--jade-light);transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(61,158,130,0.35);
+}
+.btn-secondary {
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);color:var(--text-dim);
+  padding:14px 32px;border-radius:4px;
+  text-decoration:none;font-size:14px;letter-spacing:.06em;
+  transition:all .25s;background:transparent;cursor:pointer;
+  font-family:inherit;
+}
+.btn-secondary:hover {
+  border-color:var(--jade);color:var(--jade-light);
+  transform:translateY(-2px);
+}
+
+/* ─── SECTIONS ─── */
+section { padding:120px 5vw; }
+.section-label {
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--jade);margin-bottom:20px;
+}
+.section-label::before {
+  content:'';width:32px;height:1px;background:var(--jade);
+}
+.section-title {
+  font-family:'Noto Serif JP',serif;
+  font-size:clamp(28px,4vw,44px);
+  font-weight:300;letter-spacing:.04em;
+  line-height:1.4;margin-bottom:20px;
+  color:var(--text);
+}
+body.zh .section-title {font-family:'Noto Serif SC',serif;}
+.section-desc {
+  font-size:15px;color:var(--text-dim);
+  max-width:560px;line-height:1.9;
+  margin-bottom:64px;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  margin:0;
+}
+
+/* ─── ABOUT / STRENGTHS ─── */
+.strengths {background:var(--bg2);}
+.strengths-grid {
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:2px;margin-top:0;
+}
+.strength-card {
+  background:var(--surface);
+  padding:48px 40px;
+  border:1px solid var(--border2);
+  transition:all .3s;
+  position:relative;overflow:hidden;
+}
+.strength-card::before {
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--jade-dark),var(--jade-light));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s;
+}
+.strength-card:hover::before { transform:scaleX(1); }
+.strength-card:hover {
+  background:var(--surface2);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.strength-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:48px;color:var(--jade-pale);
+  line-height:1;margin-bottom:20px;
+  background:linear-gradient(135deg,var(--jade),var(--jade-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  opacity:.5;
+}
+.strength-title {
+  font-family:'Noto Serif JP',serif;
+  font-size:18px;font-weight:600;
+  color:var(--text);margin-bottom:14px;
+  letter-spacing:.04em;
+}
+body.zh .strength-title { font-family:'Noto Serif SC',serif; }
+.strength-desc {
+  font-size:14px;color:var(--text-dim);line-height:1.8;
+}
+
+/* ─── SERVICES ─── */
+.services { background:var(--bg); }
+.services-list {
+  display:grid;gap:2px;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+}
+.service-item {
+  background:var(--surface);
+  padding:44px 40px;
+  border:1px solid var(--border2);
+  transition:all .3s;
+  display:flex;flex-direction:column;gap:16px;
+  cursor:default;
+}
+.service-item:hover {
+  background:var(--surface2);
+  border-color:rgba(61,158,130,0.25);
+  transform:translateY(-3px);
+}
+.service-icon {
+  width:48px;height:48px;
+  background:var(--jade-pale);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+}
+.service-name {
+  font-family:'Noto Serif JP',serif;
+  font-size:17px;font-weight:600;
+  color:var(--jade-light);letter-spacing:.04em;
+}
+body.zh .service-name { font-family:'Noto Serif SC',serif; }
+.service-desc {
+  font-size:14px;color:var(--text-dim);line-height:1.85;
+}
+.service-tag {
+  display:inline-block;
+  border:1px solid var(--border);
+  border-radius:12px;padding:4px 12px;
+  font-size:12px;color:var(--text-muted);
+  letter-spacing:.04em;align-self:flex-start;
+}
+
+/* ─── FLOW ─── */
+.flow { background:var(--bg3); }
+.flow-steps {
+  display:flex;
+  gap:0;
+  flex-wrap:wrap;
+  position:relative;
+}
+.flow-step {
+  flex:1;min-width:160px;
+  padding:40px 28px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-right:none;
+  position:relative;
+  transition:all .3s;
+}
+.flow-step:last-child { border-right:1px solid var(--border2); }
+.flow-step:hover { background:var(--surface2); }
+.step-arrow {
+  position:absolute;right:-16px;top:50%;transform:translateY(-50%);
+  z-index:2;
+  width:32px;height:32px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--jade);font-size:14px;
+}
+.flow-step:last-child .step-arrow { display:none; }
+.step-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:300;
+  color:var(--jade);opacity:.5;
+  line-height:1;margin-bottom:12px;
+}
+.step-name {
+  font-family:'Noto Serif JP',serif;
+  font-size:14px;font-weight:600;
+  color:var(--text);letter-spacing:.04em;
+  margin-bottom:8px;
+}
+body.zh .step-name { font-family:'Noto Serif SC',serif; }
+.step-desc {
+  font-size:12px;color:var(--text-muted);line-height:1.7;
+}
+
+/* ─── PRICING ─── */
+.pricing { background:var(--bg2); }
+.pricing-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:2px;
+}
+.price-card {
+  background:var(--surface);
+  border:1px solid var(--border2);
+  padding:44px 36px;
+  transition:all .3s;
+  position:relative;
+}
+.price-card:hover {
+  background:var(--surface2);
+  transform:translateY(-4px);
+  box-shadow:0 24px 60px rgba(0,0,0,0.4);
+}
+.price-card.featured {
+  border-color:rgba(61,158,130,0.4);
+  background:linear-gradient(160deg, var(--surface2), var(--surface));
+}
+.price-card.featured::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--jade),var(--jade-light),var(--green-light));
+}
+.price-badge {
+  display:inline-block;
+  background:var(--jade);color:#fff;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 10px;border-radius:2px;
+  margin-bottom:20px;
+}
+.price-service {
+  font-family:'Noto Serif JP',serif;
+  font-size:16px;font-weight:600;
+  color:var(--text);margin-bottom:6px;
+  letter-spacing:.04em;
+}
+body.zh .price-service { font-family:'Noto Serif SC',serif; }
+.price-amount {
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px;font-weight:300;
+  color:var(--jade-light);
+  margin:16px 0 8px;
+}
+.price-unit {
+  font-size:13px;color:var(--text-muted);margin-left:4px;
+  font-family:'Noto Sans JP',sans-serif;
+}
+.price-note {
+  font-size:12px;color:var(--text-muted);
+  margin-top:8px;line-height:1.6;
+  border-top:1px solid var(--border2);padding-top:14px;
+}
+.price-desc {
+  font-size:13px;color:var(--text-dim);line-height:1.8;
+  margin-bottom:16px;
+}
+.pricing-note {
+  margin-top:40px;
+  padding:28px 32px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-left:3px solid var(--jade);
+  font-size:13px;color:var(--text-dim);line-height:1.85;
+}
+
+/* ─── FAQ ─── */
+.faq { background:var(--bg); }
+.faq-list {
+  max-width:760px;
+  display:flex;flex-direction:column;gap:2px;
+}
+.faq-item {
+  background:var(--surface);
+  border:1px solid var(--border2);
+  overflow:hidden;
+}
+.faq-q {
+  width:100%;padding:24px 28px;
+  background:transparent;border:none;
+  color:var(--text);
+  text-align:left;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:16px;
+  font-family:'Noto Serif JP',serif;
+  font-size:15px;letter-spacing:.03em;
+  transition:background .2s;
+}
+body.zh .faq-q { font-family:'Noto Serif SC',serif; }
+.faq-q:hover { background:var(--surface2); }
+.faq-icon {
+  width:24px;height:24px;flex-shrink:0;
+  border:1px solid var(--border);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--jade);font-size:14px;
+  transition:transform .3s;
+}
+.faq-item.open .faq-icon { transform:rotate(45deg); }
+.faq-a {
+  padding:0 28px;max-height:0;overflow:hidden;
+  transition:all .35s ease;
+  font-size:14px;color:var(--text-dim);line-height:1.85;
+}
+.faq-item.open .faq-a {
+  padding:0 28px 24px;max-height:200px;
+}
+
+/* ─── CONTACT ─── */
+.contact { background:var(--bg3); }
+.contact-inner {
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  align-items:start;
+}
+@media(max-width:768px){.contact-inner{grid-template-columns:1fr;gap:48px;}}
+.contact-info { }
+.contact-item {
+  display:flex;gap:20px;
+  padding:28px 0;
+  border-bottom:1px solid var(--border2);
+}
+.contact-icon {
+  width:40px;height:40px;flex-shrink:0;
+  background:var(--jade-pale);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+.contact-label {
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:4px;
+}
+.contact-value {
+  font-size:15px;color:var(--text);
+}
+.contact-value a {
+  color:var(--jade-light);text-decoration:none;
+}
+.contact-value a:hover { text-decoration:underline; }
+.contact-form {
+  background:var(--surface);
+  border:1px solid var(--border2);
+  padding:48px 40px;
+}
+@media(max-width:600px){.contact-form{padding:32px 24px;}}
+.form-title {
+  font-family:'Noto Serif JP',serif;
+  font-size:20px;font-weight:400;
+  color:var(--text);margin-bottom:32px;letter-spacing:.04em;
+}
+body.zh .form-title { font-family:'Noto Serif SC',serif; }
+.form-group { margin-bottom:20px; }
+.form-label {
+  display:block;font-size:12px;
+  color:var(--text-dim);letter-spacing:.08em;
+  margin-bottom:8px;
+}
+.form-input, .form-textarea, .form-select {
+  width:100%;
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:3px;
+  padding:12px 16px;
+  color:var(--text);
+  font-family:inherit;font-size:14px;
+  transition:border-color .2s;
+  outline:none;
+}
+.form-input:focus, .form-textarea:focus {
+  border-color:var(--jade);
+}
+.form-textarea { height:100px;resize:vertical; }
+.form-submit {
+  width:100%;
+  background:var(--jade);color:#fff;
+  border:none;
+  padding:14px;border-radius:3px;
+  font-size:14px;letter-spacing:.08em;
+  cursor:pointer;font-family:inherit;
+  transition:all .25s;
+}
+.form-submit:hover {
+  background:var(--jade-light);
+  box-shadow:0 8px 24px rgba(61,158,130,0.3);
+}
+.form-note {
+  font-size:11px;color:var(--text-muted);
+  margin-top:12px;line-height:1.6;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background:var(--bg);
+  border-top:1px solid var(--border2);
+  padding:60px 5vw 40px;
+}
+.footer-inner {
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;
+  margin-bottom:48px;
+}
+@media(max-width:768px){.footer-inner{grid-template-columns:1fr;gap:32px;}}
+.footer-brand { }
+.footer-logo {
+  display:flex;align-items:center;gap:12px;margin-bottom:16px;
+}
+.footer-brand-name {
+  font-family:'Noto Serif JP',serif;
+  font-size:16px;font-weight:400;color:var(--text);
+}
+.footer-tagline {
+  font-size:13px;color:var(--text-muted);line-height:1.7;
+}
+.footer-col-title {
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--jade);margin-bottom:16px;
+}
+.footer-links {list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-links a {
+  font-size:13px;color:var(--text-muted);text-decoration:none;
+  transition:color .2s;
+}
+.footer-links a:hover { color:var(--jade-light); }
+.footer-bottom {
+  border-top:1px solid var(--border2);
+  padding-top:24px;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;color:var(--text-muted);
+  flex-wrap:wrap;gap:12px;
+}
+.footer-disclaimer {
+  font-size:11px;color:var(--text-muted);
+  line-height:1.6;margin-top:16px;
+  max-width:640px;
+}
+
+/* ─── LOGO SVG ─── */
+.logo-mark {
+  display:inline-block;
+}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.fade-up {
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.fade-up.visible {
+  opacity:1;transform:translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .flow-steps { flex-direction:column; }
+  .flow-step { border-right:1px solid var(--border2);border-bottom:none; }
+  .flow-step:last-child { border-bottom:1px solid var(--border2); }
+  .step-arrow { display:none; }
+  .nav-links { display:none; }
+}
+@media(max-width:600px){
+  nav { padding:0 5vw; }
+  section { padding:80px 5vw; }
+  .hero { padding:100px 5vw 60px; }
+}
+
+/* ─── HERO DECORATION ─── */
+.hero-decoration {
+  position:absolute;right:-5%;bottom:-10%;
+  width:60vw;max-width:600px;
+  opacity:.06;
+  pointer-events:none;
+}
+.stats-row {
+  display:flex;gap:48px;justify-content:center;flex-wrap:wrap;
+  margin-top:64px;padding-top:48px;
+  border-top:1px solid var(--border2);
+}
+.stat-item { text-align:center; }
+.stat-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:36px;font-weight:300;
+  color:var(--jade-light);display:block;
+}
+.stat-label {
+  font-size:12px;color:var(--text-muted);
+  letter-spacing:.08em;
+}
+
+/* mobile nav hamburger */
+.nav-hamburger {
+  display:none;
+  flex-direction:column;gap:5px;
+  cursor:pointer;padding:8px;
+  background:none;border:none;
+}
+.nav-hamburger span {
+  display:block;width:22px;height:1px;background:var(--text-dim);
+  transition:all .3s;
+}
+@media(max-width:900px){
+  .nav-hamburger{display:flex;}
+  .nav-links{
+    display:none;
+    position:fixed;top:72px;left:0;right:0;
+    background:var(--bg);
+    border-bottom:1px solid var(--border2);
+    flex-direction:column;padding:24px 5vw;gap:4px;
+  }
+  .nav-links.open { display:flex; }
+  .nav-links a { padding:12px 0;font-size:15px; }
+}
+</style>
 </head>
-<body>
-  <h1>欢迎来到我的公司官网</h1>
-  <p>这里是公司介绍。</p>
+<body class="ja">
+
+<!-- ─── NAVIGATION ─── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg class="logo-svg" viewBox="0 0 60 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Petal 3 (lightest, rightmost) -->
+      <path d="M38 8 C42 12, 46 28, 38 46 C36 42, 34 28, 38 8Z" fill="url(#g3)" opacity="0.9"/>
+      <!-- Petal 2 (middle) -->
+      <path d="M32 5 C30 9, 26 26, 28 47 C31 43, 35 26, 32 5Z" fill="url(#g2)" opacity="0.9"/>
+      <!-- Petal 1 (darkest, leftmost) -->
+      <path d="M26 10 C20 14, 16 30, 22 48 C26 44, 30 28, 26 10Z" fill="url(#g1)" opacity="0.9"/>
+      <!-- Red dot -->
+      <circle cx="30" cy="56" r="7" fill="#d43030"/>
+      <defs>
+        <linearGradient id="g1" x1="22" y1="10" x2="22" y2="48" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#2d7d8a"/>
+          <stop offset="100%" stop-color="#1a5060"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="30" y1="5" x2="30" y2="47" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#3d9e82"/>
+          <stop offset="100%" stop-color="#2a6e5a"/>
+        </linearGradient>
+        <linearGradient id="g3" x1="38" y1="8" x2="38" y2="46" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#72c97e"/>
+          <stop offset="100%" stop-color="#4aaf60"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="nav-brand">
+      <span class="nav-brand-ja" data-ja>株式会社オリジンジャパン</span>
+      <span class="nav-brand-ja" data-zh style="font-family:'Noto Sans SC',sans-serif;display:none">株式会社オリジンジャパン</span>
+      <span class="nav-brand-en">Origin Japan Co., Ltd.</span>
+    </div>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#strengths" data-ja>当社の強み</a><a href="#strengths" data-zh>我们的优势</a></li>
+    <li><a href="#services" data-ja>サービス</a><a href="#services" data-zh>服务内容</a></li>
+    <li><a href="#flow" data-ja>ご利用の流れ</a><a href="#flow" data-zh>服务流程</a></li>
+    <li><a href="#pricing" data-ja>料金</a><a href="#pricing" data-zh>收费</a></li>
+    <li><a href="#contact" data-ja>お問い合わせ</a><a href="#contact" data-zh>联系我们</a></li>
+  </ul>
+
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btnJa" onclick="setLang('ja')">日本語</button>
+      <button class="lang-btn" id="btnZh" onclick="setLang('zh')">中文</button>
+    </div>
+    <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <!-- Big decorative logo -->
+  <svg class="hero-decoration" viewBox="0 0 60 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M38 8 C42 12, 46 28, 38 46 C36 42, 34 28, 38 8Z" fill="#72c97e"/>
+    <path d="M32 5 C30 9, 26 26, 28 47 C31 43, 35 26, 32 5Z" fill="#3d9e82"/>
+    <path d="M26 10 C20 14, 16 30, 22 48 C26 44, 30 28, 26 10Z" fill="#2d7d8a"/>
+    <circle cx="30" cy="56" r="7" fill="#d43030"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span data-ja>在日・訪日中国語圏顧客向け健康生活支援サービス</span>
+      <span data-zh>在日 / 访日华语客户健康生活支持服务</span>
+    </div>
+
+    <h1 class="hero-title" data-ja>
+      日本での暮らしと健康を、<br>
+      <em>中国語でやさしく</em>サポート。
+    </h1>
+    <h1 class="hero-title" data-zh>
+      用中文，更安心地了解<br>
+      <em>日本的生活与健康</em>服务。
+    </h1>
+
+    <p class="hero-sub" data-ja>
+      在日・訪日中国語圏のお客様に、健康情報の整理・提供、人間ドック利用支援、生活習慣改善サポートまで、中国語で丁寧にご対応いたします。
+    </p>
+    <p class="hero-sub" data-zh>
+      面向在日及访日华语客户，提供健康信息整理、体检利用协助、生活方式改善支持，全程以中文贴心服务。
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">
+        <span data-ja>📩 相談を予約する</span>
+        <span data-zh>📩 预约咨询</span>
+      </a>
+      <a href="#services" class="btn-secondary">
+        <span data-ja>サービス一覧を見る →</span>
+        <span data-zh>查看服务内容 →</span>
+      </a>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-num">5</span>
+        <span class="stat-label" data-ja>主要サービス</span>
+        <span class="stat-label" data-zh>主要服务</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">中文</span>
+        <span class="stat-label" data-ja>完全対応</span>
+        <span class="stat-label" data-zh>完整对应</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">Online</span>
+        <span class="stat-label" data-ja>相談対応可</span>
+        <span class="stat-label" data-zh>可线上咨询</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">法人</span>
+        <span class="stat-label" data-ja>団体向け対応可</span>
+        <span class="stat-label" data-zh>支持企业 / 团体</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── STRENGTHS ─── -->
+<section class="strengths" id="strengths">
+  <div class="section-label" data-ja>当社の強み</div>
+  <div class="section-label" data-zh>我们的优势</div>
+  <h2 class="section-title" data-ja>選ばれる3つの理由</h2>
+  <h2 class="section-title" data-zh>三大核心优势</h2>
+  <p class="section-desc" data-ja>株式会社オリジンジャパンは、中国語圏顧客の生活習慣・健康観を深く理解したうえで、実効性のあるサービスを提供します。</p>
+  <p class="section-desc" data-zh>株式会社Origin Japan深入理解华语客户的生活习惯与健康理念，为您提供切实有效的支持服务。</p>
+
+  <div class="strengths-grid">
+    <div class="strength-card fade-up">
+      <div class="strength-num">01</div>
+      <div class="strength-title" data-ja>中国語で安心相談</div>
+      <div class="strength-title" data-zh>中文安心沟通</div>
+      <p class="strength-desc" data-ja>単なる翻訳ではなく、中国語圏顧客の文化的背景・家族構成・健康観を踏まえた説明と支援を行います。言語の壁を超えた、真の安心感を提供します。</p>
+      <p class="strength-desc" data-zh>不只是翻译，而是深入理解华语客户的文化背景、家庭结构与健康观念，提供真正让您放心的支持服务。</p>
+    </div>
+    <div class="strength-card fade-up">
+      <div class="strength-num">02</div>
+      <div class="strength-title" data-ja>住居・生活・健康を一体支援</div>
+      <div class="strength-title" data-zh>居住・生活・健康联动支持</div>
+      <p class="strength-desc" data-ja>既存の住居・生活支援事業との親和性を活かし、住居相談から健康管理まで、日本での生活全般をワンストップでサポートします。</p>
+      <p class="strength-desc" data-zh>借助现有住宅与生活支持事业的优势，从住房咨询到健康管理，提供一站式的日本生活全方位支持。</p>
+    </div>
+    <div class="strength-card fade-up">
+      <div class="strength-num">03</div>
+      <div class="strength-title" data-ja>会員型の継続フォロー</div>
+      <div class="strength-title" data-zh>支持会员制持续跟进</div>
+      <p class="strength-desc" data-ja>単発の案内にとどまらず、会員制支援や継続的フォローアップを通じて、長期的な健康管理・生活改善を伴走します。</p>
+      <p class="strength-desc" data-zh>不仅限于一次性咨询，通过会员制与持续跟进服务，长期陪伴您的健康管理与生活改善之路。</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── SERVICES ─── -->
+<section class="services" id="services">
+  <div class="section-label" data-ja>サービス内容</div>
+  <div class="section-label" data-zh>服务内容</div>
+  <h2 class="section-title" data-ja>提供サービス一覧</h2>
+  <h2 class="section-title" data-zh>服务项目一览</h2>
+  <p class="section-desc" data-ja>お客様のニーズに応じた柔軟なサービスをご用意しています。単発利用から継続会員まで対応可能です。</p>
+  <p class="section-desc" data-zh>我们提供灵活多样的服务，可根据您的需求从单次咨询到持续会员制服务自由选择。</p>
+
+  <div class="services-list">
+    <div class="service-item fade-up">
+      <div class="service-icon">🩺</div>
+      <div class="service-name" data-ja>中国語による健康情報整理</div>
+      <div class="service-name" data-zh>健康信息整理（中文）</div>
+      <p class="service-desc" data-ja>日本の健康管理・医療に関する情報を中国語でわかりやすく整理・説明します。説明資料、Q&A、会員向け情報発信にも対応します。</p>
+      <p class="service-desc" data-zh>用中文梳理并说明日本健康管理与医疗相关信息，制作说明资料、Q&A及会员信息推送。</p>
+      <span class="service-tag" data-ja>情報提供・資料作成</span>
+      <span class="service-tag" data-zh>信息提供・资料制作</span>
+    </div>
+
+    <div class="service-item fade-up">
+      <div class="service-icon">🏥</div>
+      <div class="service-name" data-ja>健診・人間ドック利用支援</div>
+      <div class="service-name" data-zh>体检・健康检查利用支持</div>
+      <p class="service-desc" data-ja>顧客ニーズのヒアリングから、提携健診機関の案内・比較・予約支援、資料整理まで一貫してサポートします。</p>
+      <p class="service-desc" data-zh>从需求沟通，到合作体检机构的介绍、比较说明、预约协助，以及资料整理，全程一贯支持。</p>
+      <span class="service-tag" data-ja>予約・手配支援</span>
+      <span class="service-tag" data-zh>预约・安排协助</span>
+    </div>
+
+    <div class="service-item fade-up">
+      <div class="service-icon">🌿</div>
+      <div class="service-name" data-ja>生活習慣改善サポート</div>
+      <div class="service-name" data-zh>生活方式改善支持</div>
+      <p class="service-desc" data-ja>食事・睡眠・運動・日常習慣に関する継続支援。会員向けフォローアップや中国語での生活改善コンテンツ配信も行います。</p>
+      <p class="service-desc" data-zh>围绕饮食、睡眠、运动与日常习惯提供持续支持，为会员提供跟进服务和中文生活改善内容推送。</p>
+      <span class="service-tag" data-ja>継続フォロー</span>
+      <span class="service-tag" data-zh>持续跟进</span>
+    </div>
+
+    <div class="service-item fade-up">
+      <div class="service-icon">📋</div>
+      <div class="service-name" data-ja>中国語資料作成・翻訳支援</div>
+      <div class="service-name" data-zh>中文资料制作与说明支持</div>
+      <p class="service-desc" data-ja>中国語説明資料、案内文書、会員向け情報資料の作成・整理を承ります。法人・提携先向けの制作対応も可能です。</p>
+      <p class="service-desc" data-zh>制作中文说明资料、宣传文件及会员信息资料。同样支持面向企业及合作机构的资料制作。</p>
+      <span class="service-tag" data-ja>資料作成・翻訳</span>
+      <span class="service-tag" data-zh>资料制作・翻译</span>
+    </div>
+
+    <div class="service-item fade-up">
+      <div class="service-icon">🎤</div>
+      <div class="service-name" data-ja>セミナー・説明会の開催</div>
+      <div class="service-name" data-zh>讲座 / 说明会</div>
+      <p class="service-desc" data-ja>企業・団体・個人向けに、中国語での健康生活セミナーや説明会を開催します。オンライン対応も可能です。</p>
+      <p class="service-desc" data-zh>面向企业、团体及个人，举办中文健康生活讲座与说明会，支持线上形式。</p>
+      <span class="service-tag" data-ja>法人・団体向け対応可</span>
+      <span class="service-tag" data-zh>支持企业 / 团体</span>
+    </div>
+
+    <div class="service-item fade-up">
+      <div class="service-icon">🏠</div>
+      <div class="service-name" data-ja>住居・生活立ち上げ支援</div>
+      <div class="service-name" data-zh>住宅・生活启动支持</div>
+      <p class="service-desc" data-ja>住居相談と連動した生活環境整備の提案、日本での生活立ち上げに関する中国語サポートを提供します。</p>
+      <p class="service-desc" data-zh>与住房咨询联动，提供生活环境整备方案建议及日本生活启动的中文全程支持。</p>
+      <span class="service-tag" data-ja>既存事業連動</span>
+      <span class="service-tag" data-zh>与现有业务联动</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── FLOW ─── -->
+<section class="flow" id="flow">
+  <div class="section-label" data-ja>ご利用の流れ</div>
+  <div class="section-label" data-zh>服务流程</div>
+  <h2 class="section-title" data-ja>5ステップでご支援</h2>
+  <h2 class="section-title" data-zh>五步服务流程</h2>
+  <p class="section-desc" data-ja>初めてのお客様も安心して始めていただける、わかりやすい流れです。</p>
+  <p class="section-desc" data-zh>即使是首次使用的客户，也可以放心、清晰地开始服务。</p>
+
+  <div class="flow-steps">
+    <div class="flow-step fade-up">
+      <div class="step-num">01</div>
+      <div class="step-name" data-ja>お問い合わせ</div>
+      <div class="step-name" data-zh>联系我们</div>
+      <p class="step-desc" data-ja>メール・電話・オンラインにてお気軽にご連絡ください</p>
+      <p class="step-desc" data-zh>通过邮件、电话或线上方式随时联系我们</p>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="flow-step fade-up">
+      <div class="step-num">02</div>
+      <div class="step-name" data-ja>ヒアリング</div>
+      <div class="step-name" data-zh>需求沟通</div>
+      <p class="step-desc" data-ja>お客様のニーズ・状況・ご希望を中国語で丁寧に確認します</p>
+      <p class="step-desc" data-zh>以中文仔细了解您的需求、情况与期望</p>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="flow-step fade-up">
+      <div class="step-num">03</div>
+      <div class="step-name" data-ja>プラン提案</div>
+      <div class="step-name" data-zh>方案建议</div>
+      <p class="step-desc" data-ja>最適なサービスの組み合わせと進め方をご提案します</p>
+      <p class="step-desc" data-zh>为您推荐最适合的服务组合与推进方式</p>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="flow-step fade-up">
+      <div class="step-num">04</div>
+      <div class="step-name" data-ja>利用支援・資料対応</div>
+      <div class="step-name" data-zh>预约与资料协助</div>
+      <p class="step-desc" data-ja>予約手配・説明資料作成・提携先との連絡調整を行います</p>
+      <p class="step-desc" div>协助预约安排、制作说明资料并与合作机构进行沟通协调</p>
+      <div class="step-arrow">›</div>
+    </div>
+    <div class="flow-step fade-up">
+      <div class="step-num">05</div>
+      <div class="step-name" data-ja>継続フォロー</div>
+      <div class="step-name" data-zh>持续跟进</div>
+      <p class="step-desc" data-ja>サービス利用後も、生活支援・会員フォローを継続します</p>
+      <p class="step-desc" data-zh>服务结束后，持续提供生活支持与会员跟进服务</p>
+      <div class="step-arrow">›</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PRICING ─── -->
+<section class="pricing" id="pricing">
+  <div class="section-label" data-ja>料金案内</div>
+  <div class="section-label" data-zh>收费说明</div>
+  <h2 class="section-title" data-ja>サービス料金</h2>
+  <h2 class="section-title" data-zh>服务收费</h2>
+  <p class="section-desc" data-ja>下記は参考料金です。内容・人数・期間に応じて個別にお見積りいたします。</p>
+  <p class="section-desc" data-zh>以下为参考收费，将根据服务内容、人数及期限单独报价。</p>
+
+  <div class="pricing-grid">
+    <div class="price-card fade-up">
+      <div class="price-service" data-ja>初回相談</div>
+      <div class="price-service" data-zh>初步咨询</div>
+      <p class="price-desc" data-ja>60分間のヒアリング・ニーズ整理・利用方針のご提案</p>
+      <p class="price-desc" data-zh>60分钟需求沟通、信息整理与方向建议</p>
+      <div class="price-amount">¥30,000<span class="price-unit" data-ja>（税込）</span><span class="price-unit" data-zh>（含税）</span></div>
+      <div class="price-note" data-ja>✓ オンライン相談可能</div>
+      <div class="price-note" data-zh>✓ 可线上咨询</div>
+    </div>
+
+    <div class="price-card featured fade-up">
+      <div class="price-badge" data-ja>人気</div>
+      <div class="price-badge" data-zh>热门</div>
+      <div class="price-service" data-ja>健診利用支援パッケージ</div>
+      <div class="price-service" data-zh>体检利用支持套餐</div>
+      <p class="price-desc" data-ja>人間ドック・健康チェックの比較案内、予約支援、資料整理</p>
+      <p class="price-desc" data-zh>体检项目比较说明、预约协助、资料整理</p>
+      <div class="price-amount">¥120,000<span class="price-unit">〜</span></div>
+      <div class="price-note" data-ja>✓ 1案件あたり　✓ 内容により個別見積</div>
+      <div class="price-note" data-zh>✓ 按单次案件　✓ 根据内容单独报价</div>
+    </div>
+
+    <div class="price-card fade-up">
+      <div class="price-service" data-ja>継続会員プラン</div>
+      <div class="price-service" data-zh>持续会员方案</div>
+      <p class="price-desc" data-ja>生活習慣フォロー、中国語情報配信、定期相談</p>
+      <p class="price-desc" data-zh>生活方式跟进、中文信息推送、定期咨询</p>
+      <div class="price-amount">¥20,000<span class="price-unit" data-ja>/月</span><span class="price-unit" data-zh>/月</span></div>
+      <div class="price-note" data-ja>✓ 月額　✓ 個別設計も可</div>
+      <div class="price-note" data-zh>✓ 按月计费　✓ 可个性化设计</div>
+    </div>
+
+    <div class="price-card fade-up">
+      <div class="price-service" data-ja>資料作成・説明支援</div>
+      <div class="price-service" data-zh>资料制作与说明支持</div>
+      <p class="price-desc" data-ja>中国語資料作成、説明用資料の整理、会員向け案内作成</p>
+      <p class="price-desc" data-zh>中文资料制作、说明资料整理、会员内容制作</p>
+      <div class="price-amount">¥50,000<span class="price-unit">〜</span></div>
+      <div class="price-note" data-ja>✓ 1件あたり　✓ 法人対応可</div>
+      <div class="price-note" data-zh>✓ 按件计费　✓ 支持企业客户</div>
+    </div>
+
+    <div class="price-card fade-up">
+      <div class="price-service" data-ja>セミナー・説明会</div>
+      <div class="price-service" data-zh>讲座 / 说明会</div>
+      <p class="price-desc" data-ja>企業・団体向けの中国語説明会、健康生活セミナー</p>
+      <p class="price-desc" data-zh>面向企业或团体的中文说明会与健康生活讲座</p>
+      <div class="price-amount">¥150,000<span class="price-unit">〜</span></div>
+      <div class="price-note" data-ja>✓ 1回あたり　✓ オンライン可</div>
+      <div class="price-note" data-zh>✓ 按场次计费　✓ 可线上举办</div>
+    </div>
+  </div>
+
+  <div class="pricing-note">
+    <span data-ja>
+      ※ 上記は参考料金です。サービス内容・人数・期間により個別にお見積りいたします。<br>
+      ※ 団体・提携先向けのパッケージ設計も可能です。<br>
+      ※ ご契約前にサービス範囲と進め方を丁寧にご説明いたします。
+    </span>
+    <span data-zh>
+      ※ 以上均为参考收费，将根据服务内容、人数及期限单独报价。<br>
+      ※ 同样支持面向企业及合作机构的套餐设计。<br>
+      ※ 签约前将详细说明服务范围与推进方式。
+    </span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── FAQ ─── -->
+<section class="faq" id="faq">
+  <div class="section-label" data-ja>よくある質問</div>
+  <div class="section-label" data-zh>常见问题</div>
+  <h2 class="section-title" data-ja>FAQ</h2>
+  <h2 class="section-title" data-zh>常见问题</h2>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span data-ja>中国語での相談は可能ですか？</span>
+        <span data-zh>可以用中文沟通吗？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span data-ja>はい、対応可能です。日本語でのご対応も可能ですので、お気軽にご連絡ください。</span>
+        <span data-zh>可以。我们同样支持日语沟通，欢迎随时联系。</span>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span data-ja>オンラインでの相談は可能ですか？</span>
+        <span data-zh>可以线上咨询吗？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span data-ja>はい、対応可能です。メール・ビデオ通話・電話にてご対応いたします。</span>
+        <span data-zh>可以，支持通过邮件、视频通话或电话进行线上咨询。</span>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span data-ja>団体・企業向けの説明会は対応できますか？</span>
+        <span data-zh>可以举办面向企业或团体的说明会吗？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span data-ja>はい、承っております。内容・規模・形式（対面・オンライン）に合わせてご提案いたします。</span>
+        <span data-zh>可以，我们将根据内容、规模及形式（现场或线上）为您量身定制方案。</span>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span data-ja>医療行為は行いますか？</span>
+        <span data-zh>贵公司提供医疗诊断服务吗？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span data-ja>いいえ。当社は情報提供・利用支援・翻訳調整を中心とした民間サービスです。専門的な判断・実施は提携医療機関の範囲となります。</span>
+        <span data-zh>不提供。本公司专注于信息提供、利用协助与翻译协调的民间服务，专业诊断与实施属于合作医疗机构的职责范围。</span>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span data-ja>継続的なフォローアップは可能ですか？</span>
+        <span data-zh>可以提供持续跟进服务吗？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">
+        <span data-ja>はい。継続会員プランをご用意しております。月額でのフォローアップや、個別設計の会員プランも対応可能です。</span>
+        <span data-zh>可以，我们提供持续会员方案，支持按月跟进服务，也可根据需求进行个性化设计。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact" id="contact">
+  <div class="section-label" data-ja>お問い合わせ</div>
+  <div class="section-label" data-zh>联系我们</div>
+  <h2 class="section-title" data-ja>ご相談・お問い合わせ</h2>
+  <h2 class="section-title" data-zh>咨询与联系</h2>
+
+  <div class="contact-inner">
+    <div class="contact-info">
+      <p style="font-size:14px;color:var(--text-dim);line-height:1.85;margin-bottom:40px;" data-ja>
+        ご不明な点、サービス内容に関するご相談など、どのようなことでもお気軽にご連絡ください。メールは24時間受付しております。
+      </p>
+      <p style="font-size:14px;color:var(--text-dim);line-height:1.85;margin-bottom:40px;" data-zh>
+        如有任何疑问或服务咨询，欢迎随时联系我们。邮件全天候受理。
+      </p>
+
+      <div class="contact-item">
+        <div class="contact-icon">🏢</div>
+        <div>
+          <div class="contact-label" data-ja>会社名</div>
+          <div class="contact-label" data-zh>公司名称</div>
+          <div class="contact-value">株式会社オリジンジャパン<br>
+            <span style="font-size:13px;color:var(--text-muted)">Origin Japan Co., Ltd.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">E-mail</div>
+          <div class="contact-value">
+            <a href="mailto:originjp@outlook.com">originjp@outlook.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label" data-ja>電話番号</div>
+          <div class="contact-label" data-zh>电话</div>
+          <div class="contact-value">080-5050-1158</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">👤</div>
+        <div>
+          <div class="contact-label" data-ja>担当者</div>
+          <div class="contact-label" data-zh>负责人</div>
+          <div class="contact-value" data-ja>土屋</div>
+          <div class="contact-value" data-zh>土屋</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label" data-ja>受付時間</div>
+          <div class="contact-label" data-zh>受理时间</div>
+          <div class="contact-value" data-ja>平日 9:00〜18:00（メールは24時間受付）</div>
+          <div class="contact-value" data-zh>工作日 9:00〜18:00（邮件全天受理）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-title" data-ja>お問い合わせフォーム</div>
+      <div class="form-title" data-zh>在线咨询表单</div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <span data-ja>お名前 *</span>
+          <span data-zh>姓名 *</span>
+        </label>
+        <input type="text" class="form-input" placeholder="例：山田 太郎 / 张 三">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <span data-ja>メールアドレス *</span>
+          <span data-zh>电子邮箱 *</span>
+        </label>
+        <input type="email" class="form-input" placeholder="example@email.com">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <span data-ja>ご希望のサービス</span>
+          <span data-zh>咨询服务</span>
+        </label>
+        <input type="text" class="form-input" 
+          data-ja-placeholder="例：健診利用支援について"
+          data-zh-placeholder="例：体检利用支持咨询"
+          placeholder="例：健診利用支援について">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <span data-ja>お問い合わせ内容</span>
+          <span data-zh>咨询内容</span>
+        </label>
+        <textarea class="form-textarea" 
+          data-ja-placeholder="ご質問・ご相談内容をご記入ください"
+          data-zh-placeholder="请填写您的问题或咨询内容"
+          placeholder="ご質問・ご相談内容をご記入ください"></textarea>
+      </div>
+
+      <button class="form-submit" onclick="submitForm()">
+        <span data-ja>メールで送信する →</span>
+        <span data-zh>发送邮件 →</span>
+      </button>
+
+      <p class="form-note" data-ja>
+        ※ このフォームはメーラーを起動します。または直接 originjp@outlook.com へご連絡ください。
+      </p>
+      <p class="form-note" data-zh>
+        ※ 此表单将打开邮件客户端。您也可以直接发送邮件至 originjp@outlook.com。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <svg width="32" height="36" viewBox="0 0 60 68" fill="none">
+          <path d="M38 8 C42 12, 46 28, 38 46 C36 42, 34 28, 38 8Z" fill="url(#fg3)"/>
+          <path d="M32 5 C30 9, 26 26, 28 47 C31 43, 35 26, 32 5Z" fill="url(#fg2)"/>
+          <path d="M26 10 C20 14, 16 30, 22 48 C26 44, 30 28, 26 10Z" fill="url(#fg1)"/>
+          <circle cx="30" cy="56" r="7" fill="#d43030"/>
+          <defs>
+            <linearGradient id="fg1" x1="22" y1="10" x2="22" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#2d7d8a"/><stop offset="100%" stop-color="#1a5060"/>
+            </linearGradient>
+            <linearGradient id="fg2" x1="30" y1="5" x2="30" y2="47" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#3d9e82"/><stop offset="100%" stop-color="#2a6e5a"/>
+            </linearGradient>
+            <linearGradient id="fg3" x1="38" y1="8" x2="38" y2="46" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#72c97e"/><stop offset="100%" stop-color="#4aaf60"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="footer-brand-name">株式会社オリジンジャパン</span>
+      </div>
+      <p class="footer-tagline" data-ja>在日・訪日中国語圏顧客向け<br>健康生活支援サービス</p>
+      <p class="footer-tagline" data-zh>面向在日及访日华语客户<br>健康生活支持服务</p>
+    </div>
+
+    <div>
+      <div class="footer-col-title" data-ja>サービス</div>
+      <div class="footer-col-title" data-zh>服务</div>
+      <ul class="footer-links">
+        <li><a href="#services" data-ja>健康情報整理</a><a href="#services" data-zh>健康信息整理</a></li>
+        <li><a href="#services" data-ja>健診利用支援</a><a href="#services" data-zh>体检利用支持</a></li>
+        <li><a href="#services" data-ja>生活習慣サポート</a><a href="#services" data-zh>生活方式改善</a></li>
+        <li><a href="#services" data-ja>資料作成・翻訳</a><a href="#services" data-zh>资料制作・翻译</a></li>
+        <li><a href="#services" data-ja>セミナー・説明会</a><a href="#services" data-zh>讲座・说明会</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title" data-ja>お問い合わせ</div>
+      <div class="footer-col-title" data-zh>联系我们</div>
+      <ul class="footer-links">
+        <li><a href="mailto:originjp@outlook.com">originjp@outlook.com</a></li>
+        <li><a href="tel:08050501158">080-5050-1158</a></li>
+        <li><a href="#faq" data-ja>よくある質問</a><a href="#faq" data-zh>常见问题</a></li>
+        <li><a href="#pricing" data-ja>料金案内</a><a href="#pricing" data-zh>收费说明</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-disclaimer" data-ja>
+    ※ 本サービスは、健康生活支援・情報提供・利用支援・翻訳調整を中心とする民間サービスです。専門的判断および実施は提携機関の範囲となります。
+  </div>
+  <div class="footer-disclaimer" data-zh>
+    ※ 本服务以健康生活支持、信息提供、利用协助、翻译协调为中心。相关专业判断与实施由合作机构负责。
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2024 株式会社オリジンジャパン / Origin Japan Co., Ltd. All rights reserved.</span>
+    <span style="display:flex;gap:16px;">
+      <a href="#top" style="color:var(--text-muted);text-decoration:none;" data-ja>ページトップへ ↑</a>
+      <a href="#top" style="color:var(--text-muted);text-decoration:none;" data-zh>返回顶部 ↑</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+// ─── Language Toggle ───
+function setLang(lang) {
+  document.body.className = lang;
+  document.getElementById('btnJa').classList.toggle('active', lang === 'ja');
+  document.getElementById('btnZh').classList.toggle('active', lang === 'zh');
+  document.documentElement.lang = lang === 'ja' ? 'ja' : 'zh';
+  // Update placeholders
+  document.querySelectorAll('[data-ja-placeholder], [data-zh-placeholder]').forEach(el => {
+    el.placeholder = lang === 'ja' 
+      ? (el.dataset.jaPlaceholder || '') 
+      : (el.dataset.zhPlaceholder || '');
+  });
+}
+
+// ─── Mobile Menu ───
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ─── FAQ Toggle ───
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// ─── Contact Form ───
+function submitForm() {
+  const inputs = document.querySelectorAll('.form-input, .form-textarea');
+  const name = inputs[0].value || '';
+  const email = inputs[1].value || '';
+  const service = inputs[2].value || '';
+  const message = inputs[3].value || '';
+  const isJa = document.body.classList.contains('ja');
+  const subject = isJa 
+    ? `お問い合わせ：${service || 'サービスについて'}` 
+    : `咨询：${service || '服务咨询'}`;
+  const body = isJa
+    ? `お名前：${name}\n\nメールアドレス：${email}\n\nご希望のサービス：${service}\n\nお問い合わせ内容：\n${message}`
+    : `姓名：${name}\n\n邮箱：${email}\n\n咨询服务：${service}\n\n咨询内容：\n${message}`;
+  window.location.href = `mailto:originjp@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// ─── Scroll Animation ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, 100);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ─── Staggered fade for grids ───
+document.querySelectorAll('.strengths-grid .strength-card, .services-list .service-item, .pricing-grid .price-card, .flow-step').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 80}ms`;
+});
+
+// ─── Nav scroll effect ───
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 50) {
+    nav.style.background = 'rgba(10,12,14,0.97)';
+  } else {
+    nav.style.background = 'rgba(10,12,14,0.88)';
+  }
+});
+
+// Initialize
+setLang('ja');
+</script>
 </body>
 </html>
